@@ -27,10 +27,11 @@
 */
 #include "sys_shared.h"
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) && !defined(__ANDROID__)
 #include <cpuid.h>
 #endif
 
+#if !defined(__ANDROID__)
 #define SSE3_FLAG		(1<<0)
 #define SSSE3_FLAG		(1<<9)
 #define SSE4_1_FLAG		(1<<19)
@@ -70,3 +71,12 @@ void Sys_CheckCpuInstructionsSupport(void)
 
 	cpuinfo.avx2 = (cpuid_data[1] & AVX2_FLAG) ? 1 : 0; // ebx
 }
+#else
+cpuinfo_t cpuinfo = {};
+
+void Sys_CheckCpuInstructionsSupport(void)
+{
+//	memset(cpuinfo, 0, sizeof(cpuinfo));
+}
+
+#endif

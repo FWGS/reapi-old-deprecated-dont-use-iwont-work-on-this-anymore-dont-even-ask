@@ -89,8 +89,10 @@
 #include <fstream>
 #include <iomanip>
 
+#ifndef __ANDROID__
 #include <smmintrin.h>
 #include <xmmintrin.h>
+#endif
 
 #ifdef _WIN32 // WINDOWS
 	#define _CRT_SECURE_NO_WARNINGS
